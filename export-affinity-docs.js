@@ -144,8 +144,7 @@ async function main() {
 
   let savedCount = 0;
   for (const fileName of fileNames) {
-    const outName = fileName.endsWith('.md') ? fileName : `${fileName}.md`;
-    const outPath = path.join(OUTPUT_DIR, outName);
+    const outPath = path.join(OUTPUT_DIR, fileName);
     if (fs.existsSync(outPath)) {
       continue;
     }
@@ -158,7 +157,7 @@ async function main() {
       if (content && !/^error[:\s]/i.test(content.trim())) {
         fs.mkdirSync(path.dirname(outPath), { recursive: true });
         fs.writeFileSync(outPath, content, 'utf8');
-        console.log(`Saved: docs/${outName}`);
+        console.log(`Saved: docs/${fileName}`);
         savedCount++;
       } else {
         console.warn(`Skipped ${fileName}: empty or error response`);
